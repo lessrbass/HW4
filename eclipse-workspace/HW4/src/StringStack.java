@@ -3,21 +3,21 @@
 */
 
 /** Array-based stack implementation */
-class AStack<E> {
+class StringStack<Char> {
 
-  private static final int defaultSize = 10;
+  private static final int defaultSize = 100;
 
   private int maxSize;            // Maximum size of stack
   private int top;                // Index for top Object
-  private E [] listArray;         // Array holding stack
+  private char [] listArray;         // Array holding stack
 
   /** Constructors */
-  AStack() { this(defaultSize); }
+  StringStack() { this(defaultSize); }
   @SuppressWarnings("unchecked") // Generic array allocation
-  AStack(int size) {
+  StringStack(int size) {
     maxSize = size;
     top = 0; 
-    listArray = (E[])new Object[size];   // Create listArray
+    listArray = (char[])new char[size];   // Create listArray
   }
 
   /** Reinitialize stack */
@@ -26,34 +26,42 @@ class AStack<E> {
   /** Push "it" onto stack */
 public void push(String string) {
 	  assert top != maxSize : "Stack is full";
-	  listArray[top++] = (E) string;
-	  String sample = (String) string;
-	  int i = 0;
+	//  listArray[top++] = string;
+	  int i;
 	  char temp;
-	  int length = sample.length();
-	  //System.out.print(length);
-	  while (i < sample.length()) {
-		  temp = sample.charAt(i);
-		 // listArray[i] = temp;
-		  
-		  System.out.println(temp);
-		  i++;
+	  int length = string.length();
+	  if (length > 255) {
+		  System.out.print("String too long");
 	  }
-	  System.out.print(listArray[0]);
-	  System.out.print(listArray[1]);
-	  System.out.println(listArray[2]);
+	  else {
+	  //System.out.print(length);
+		  for(i=top; i<length; i++) {
+			  temp = string.charAt(i);
+			  listArray[top + i] = temp;
+		  }
+		  listArray[length] = (char) length;
+	  }
+	  top = listArray[length];
   }
 
   /** Remove and top element */
-  public E pop() {
+  public String pop() {
     assert top != 0 : "Stack is empty";
-    return listArray[--top];
+    int i = 0;
+    //int lnth = (char) top;
+    //System.out.print(lnth);
+    for (i= 0; i < top; i++) {
+    	char temp = listArray[top - (top-i)];
+    	System.out.print(temp);
+    }
+    return (String) toString();
   }
 
   /** @return Top element */
-  public E topValue() {
+  public String topValue() {
     assert top != 0 : "Stack is empty";
-    return listArray[top-1];
+    top = listArray[]
+    return (String) toString();
   }
 
   /** @return Stack size */
